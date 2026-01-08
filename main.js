@@ -2,6 +2,9 @@ let products2 = [];
 function Noleft() {
   alert("Товар отсутствует");
 }
+function SignIn() {
+  window.location.href = "./signup.html";
+}
 
 function addTokart(product_name, price) {
   alert("Товар добавлен в корзину");
@@ -50,6 +53,17 @@ window.addEventListener("load", () => {
   }, 5000);
 });
 
+const entrance = document.querySelector(".enterence");
+
+// блокируем скролл сразу
+document.body.classList.add("no-scroll");
+
+entrance.addEventListener("animationend", () => {
+  entrance.style.display = "none";
+
+  // возвращаем скролл
+  document.body.classList.remove("no-scroll");
+});
 
 const ratings = document.querySelectorAll(".rating");
 
