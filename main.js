@@ -1,3 +1,91 @@
+let products2 = [];
+function Noleft() {
+  alert("Товар отсутствует");
+}
+
+function addTokart(product_name, price) {
+  alert("Товар добавлен в корзину");
+
+  const product = products2.find(
+    (p) => p.name.toLowerCase() === product_name.toLowerCase()
+  );
+
+  if (product) {
+    product.count++;
+  } else {
+    products2.push({ name: product_name, price: price, count: 1 });
+  }
+
+  console.log(products2);
+}
+function showCart() {
+  if (products2.length === 0) {
+    alert("🛒 Корзина пуста");
+    return;
+  }
+
+  let message = "🛒 Ваша корзина:\n\n";
+  let total = 0;
+
+  for (let i = 0; i < products2.length; i++) {
+    let p = products2[i];
+    let sum = p.price * p.count;
+    total += sum;
+
+    message +=
+      `${i + 1}. ${p.name}\n` +
+      `   Количество: ${p.count}\n` +
+      `   Цена: ${p.price.toLocaleString()} сум\n` +
+      `   Сумма: ${sum.toLocaleString()} сум\n\n`;
+  }
+
+  message += `💰 Итого: ${total.toLocaleString()} сум`;
+
+  alert(message);
+}
+
+
+const ratings = document.querySelectorAll(".rating");
+
+ratings.forEach((rating) => {
+  const stars = rating.querySelector(".stars");
+  const fill = stars.querySelector(".fill");
+  const value = rating.querySelector(".value");
+  const max = 5;
+
+  let fixedRating = null;
+
+  stars.addEventListener("mousemove", (e) => {
+    const rect = stars.getBoundingClientRect();
+    const percent = (e.clientX - rect.left) / rect.width;
+    const hoverWidth = Math.min(Math.max(percent, 0), 1) * 100;
+    fill.style.width = hoverWidth + "%";
+    if (!fixedRating) {
+      value.textContent = ((hoverWidth / 100) * max).toFixed(1);
+    }
+  });
+
+  stars.addEventListener("click", (e) => {
+    const rect = stars.getBoundingClientRect();
+    let ratingValue = ((e.clientX - rect.left) / rect.width) * max;
+    ratingValue = Math.round(ratingValue * 10) / 10;
+
+    fixedRating = ratingValue;
+    fill.style.width = (fixedRating / max) * 100 + "%";
+    value.textContent = fixedRating.toFixed(1);
+  });
+
+  stars.addEventListener("mouseleave", () => {
+    if (fixedRating !== null) {
+      fill.style.width = (fixedRating / max) * 100 + "%";
+      value.textContent = fixedRating.toFixed(1);
+    } else {
+      fill.style.width = "0%";
+      value.textContent = "0.0";
+    }
+  });
+});
+//exam start
 class Movie {
   constructor(title, genre, duration, availableSeats) {
     this.title = title;
@@ -63,7 +151,9 @@ class Theater {
     return this.movies.filter((m) => m.availableSeats > 0);
   }
   searchByGenre(genre) {
-    return this.movies.filter((m) => m.genre.toLowerCase().includes(genre.toLowerCase()));
+    return this.movies.filter((m) =>
+      m.genre.toLowerCase().includes(genre.toLowerCase())
+    );
   }
 }
 class User {
@@ -286,19 +376,17 @@ function lettersCount(arr) {
   return letterCount;
 }
 function mostFrequentLetter(letterCount) {
-  return Object.entries(letterCount).sort(
-    (a, b) => b[1] - a[1]
-  )[0];
+  return Object.entries(letterCount).sort((a, b) => b[1] - a[1])[0];
 }
-function letterToarray(str){
+function letterToarray(str) {
   return str.split("");
 }
-function LettersToCode(arr){
-  return arr.map((l)=>l!=" "?l.charCodeAt():l);
+function LettersToCode(arr) {
+  return arr.map((l) => (l != " " ? l.charCodeAt() : l));
 }
-function OddIndexLetters(arr){
-  return arr.filter((l,i)=>i%2!=0);
+function OddIndexLetters(arr) {
+  return arr.filter((l, i) => i % 2 != 0);
 }
-function reverseArray(arr){
+function reverseArray(arr) {
   return arr.reverse();
 }
