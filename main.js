@@ -44,6 +44,12 @@ function showCart() {
   alert(message);
 }
 
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.querySelector(".enterence").style.display = "none";
+  }, 5000);
+});
+
 
 const ratings = document.querySelectorAll(".rating");
 
