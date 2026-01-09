@@ -1057,6 +1057,12 @@ body.no-scroll {
   }
 }
 @media (max-width: 500px) {
+  .card img:first-child{
+    width: 100%;
+  }
+  .cards{
+    gap: 60px;
+  }
   .footer_wrapper {
     grid-template-columns: 1fr;
     grid-template-areas:
